@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beside - Meaningful Conversations with Your Kids</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-cream: #FFF8F0;
+            --bg-white: #FFFFFF;
+            --sage: #7FB685;
+            --sage-dark: #5E9B68;
+            --coral: #E8956A;
+            --coral-light: #FFF0E6;
+            --text-dark: #3D3B3C;
+            --text-muted: #8A8688;
+            --border: #EDE8E3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 248, 240, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--coral);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before,
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            background: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .logo-icon::before {
+            left: 8px;
+            transform: rotate(-12deg);
+        }
+
+        .logo-icon::after {
+            right: 8px;
+            transform: rotate(12deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--sage);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-cream) 0%, #FFF5E8 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--sage);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(127, 182, 133, 0.4);
+        }
+
+        .cta-button:hover {
+            background: var(--sage-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(127, 182, 133, 0.5);
+        }
+
+        /* App Preview */
+        .app-preview {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: var(--bg-white);
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-cream);
+            border-radius: 32px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mockup-logo {
+            width: 28px;
+            height: 28px;
+            background: var(--coral);
+            border-radius: 50%;
+        }
+
+        .mockup-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .mockup-profiles {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mockup-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .mockup-card {
+            background: linear-gradient(135deg, #F4A261 0%, #E76F51 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            flex: 1;
+        }
+
+        .mockup-card-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mockup-card-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-cream);
+            padding: 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--sage);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Packs Section */
+        .packs {
+            padding: 5rem 2rem;
+            background: var(--bg-cream);
+        }
+
+        .packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pack-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+
+        .pack-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .pack-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pack-emoji {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #F4A261 0%, #E76F51 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .pack-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pack-count {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .pack-description {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-statement {
+            background: var(--coral-light);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mission-statement p {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--bg-cream);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--sage);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--sage);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--sage-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--sage);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--sage);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .app-preview {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .phone-mockup {
+                width: 260px;
+                height: 520px;
+            }
+
+            .features,
+            .packs,
+            .about,
+            .contact {
+                padding: 3rem 1.5rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                Beside
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#packs">Packs</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Be beside them</h1>
+            <p class="hero-tagline">Meaningful conversations with your kids</p>
+            <p class="hero-description">Age-appropriate questions that spark connection. From toddlers to teens, Beside helps you have deeper conversations with the children you love.</p>
+            <a href="#contact" class="cta-button">Get the App</a>
+        </div>
+
+        <div class="app-preview">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="mockup-header">
+                        <div class="mockup-logo"></div>
+                        <div class="mockup-title">Beside</div>
+                    </div>
+                    <div class="mockup-profiles">
+                        <div class="mockup-avatar" style="background: linear-gradient(135deg, #F4A261, #E76F51);">E</div>
+                        <div class="mockup-avatar" style="background: linear-gradient(135deg, #7FB685, #5E9B68);">J</div>
+                        <div class="mockup-avatar" style="background: linear-gradient(135deg, #7B2D8B, #C2185B);">M</div>
+                    </div>
+                    <div class="mockup-card">
+                        <div class="mockup-card-title">Core Collection</div>
+                        <div class="mockup-card-text">What made you laugh today?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">How Beside Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👶</div>
+                    <h3>Age-Appropriate Questions</h3>
+                    <p>Questions tailored for toddlers, little kids, tweens, and teens. Each stage gets conversations designed for their world.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Family Profiles</h3>
+                    <p>Create profiles for each child with custom avatars. Tap a profile to instantly see questions perfect for their age.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎒</div>
+                    <h3>Conversation Packs</h3>
+                    <p>From everyday questions to Disney Parks Magic, Road Trip, Bedtime Stories, and Fun & Laughs packs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Build Streaks</h3>
+                    <p>Track your daily conversations and build connection streaks. Celebrate milestones together as a family.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>Save the Best</h3>
+                    <p>Heart your favorite questions to build a personal collection of conversation starters that work for your family.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Bedtime Mode</h3>
+                    <p>Warm, gentle colors for evening conversations. Wind down and connect before sleep with calming questions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packs Section -->
+    <section id="packs" class="packs">
+        <div class="container">
+            <h2 class="section-title">Conversation Packs</h2>
+            <div class="packs-grid">
+                <div class="pack-card">
+                    <div class="pack-header">
+                        <div class="pack-emoji">💬</div>
+                        <div>
+                            <div class="pack-title">Core Collection</div>
+                            <div class="pack-count">125 questions</div>
+                        </div>
+                    </div>
+                    <p class="pack-description">Everyday conversations that matter. Questions to help you know their heart, build them up, and open up meaningful dialogue.</p>
+                </div>
+                <div class="pack-card">
+                    <div class="pack-header">
+                        <div class="pack-emoji" style="background: linear-gradient(135deg, #7B2D8B, #C2185B);">🏰</div>
+                        <div>
+                            <div class="pack-title">Disney Parks Magic</div>
+                            <div class="pack-count">40 questions</div>
+                        </div>
+                    </div>
+                    <p class="pack-description">Questions inspired by the magic of Disney Parks. Perfect for your next visit or to bring the magic home.</p>
+                </div>
+                <div class="pack-card">
+                    <div class="pack-header">
+                        <div class="pack-emoji" style="background: linear-gradient(135deg, #FF6B9D, #FF8C42);">😄</div>
+                        <div>
+                            <div class="pack-title">Fun & Laughs</div>
+                            <div class="pack-count">75 questions</div>
+                        </div>
+                    </div>
+                    <p class="pack-description">Silly questions guaranteed to make someone snort. Lighten the mood and share a laugh together.</p>
+                </div>
+                <div class="pack-card">
+                    <div class="pack-header">
+                        <div class="pack-emoji" style="background: linear-gradient(135deg, #3F51B5, #673AB7);">🌙</div>
+                        <div>
+                            <div class="pack-title">Bedtime Stories</div>
+                            <div class="pack-count">Coming Soon</div>
+                        </div>
+                    </div>
+                    <p class="pack-description">Gentle questions for evening connection. Wind down and reflect on the day before sleep.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="about-text">
+                    Beside was created by parents who believe that the best gift we can give our children is our presence and attention. 
+                    In a world of distractions, we wanted to create something that brings families back to what matters most: 
+                    meaningful conversation and genuine connection.
+                </p>
+                <p class="about-text">
+                    Every question in Beside is designed to help you see into your child's heart. To understand their fears, 
+                    their dreams, their sense of humor, and their growing identity. These aren't just conversation starters—
+                    they're bridges to deeper relationship.
+                </p>
+                <div class="mission-statement">
+                    <p>"Be beside them. Not just physically present, but truly there—listening, understanding, and connecting."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Organization</label>
+                        <input type="text" class="form-input" placeholder="Your organization">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-textarea" placeholder="How can we help?" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Beside</h4>
+                <p style="color: #888; line-height: 1.6;">Meaningful conversations with your kids. Be beside them.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#packs">Packs</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Beside. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
